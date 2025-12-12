@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    user: root  # Pour éviter les problèmes de permissions
+    privileged: true
+    ports:
+      - "8080:8080"  # Interface Web de Jenkins
+      - "50000:50000"  # Port JNLP pour les agents Jenkins
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Permet au conteneur Jenkins d'accéder au Docker de l'hôte
+      - ./jenkins_home:/var/jenkins_home  # Volume pour persister les données Jenkins
+
